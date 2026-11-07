@@ -1,3 +1,5 @@
+import static java.lang.Character.getNumericValue;
+
 /**
  * Exercise (Chapter 1: Introduction to Java) — while loops and integer
  * arithmetic.
@@ -21,7 +23,17 @@ public class DigitSum {
      * @return the sum of its decimal digits
      */
     public static int digitSum(int n) {
-        // TODO: complete
-        return 0;
+        String calcA = String.valueOf(n);
+        int total = 0;
+        int i = 0;
+        String calcB = calcA;
+        if (calcA.charAt(0) == '-') {
+            calcB = calcA.substring(1);
+        }
+        while(i < calcB.length()) {
+            total = total + Character.getNumericValue(calcB.charAt(i));
+            i++;
+        }
+        return total;
     }
 }
