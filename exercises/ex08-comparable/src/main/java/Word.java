@@ -36,8 +36,13 @@ public class Word implements Comparable<Word> {
    */
   @Override
   public int compareTo(Word other) {
-    // TODO: String has a .length() method. The difference of the two lengths is
-    //       already negative / zero / positive in the right cases.
-    return 0;
+    String one = this.getText();
+    String two = other.getText();
+    if (one.length() < two.length()) {
+      return -1;
+    } else if (one.length() == two.length()) {
+      return 0;
+    }
+    return 1;
   }
 }
