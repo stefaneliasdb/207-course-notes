@@ -1,3 +1,7 @@
+/**
+ * Random text.
+ */
+
 public class Rectangle {
     private double width;
     private double height;
@@ -13,7 +17,7 @@ public class Rectangle {
 
     /**
      * scales the rectangle
-     * @param factor
+     * @param factor description now not missing.
      */
     public void scale(double factor) {
       width = width * factor;
@@ -21,9 +25,6 @@ public class Rectangle {
     }
 
     public boolean isLargerThan(Rectangle other){
-        if(area() > other.area())
-            return true;
-        else
-            return false;
+        return area() > other.area();
     }
 }
