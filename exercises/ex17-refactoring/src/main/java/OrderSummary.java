@@ -56,38 +56,33 @@ public class OrderSummary {
    * @return the formatted summary, with lines separated by {@code \n}
    */
   public static String summarize(String customer, String[] itemNames, double[] itemPrices) {
-    // TODO (Slide Statements, 13.6): these three declarations are a long way from
-    //      the code that first uses them. Slide each one down to its first use.
     double subtotal = 0.0;
+    subtotal = getSubtotal(itemPrices, subtotal);
+
     int premiumCount = 0;
-    double discount = 0.0;
+    premiumCount = getPremiumCount(itemPrices, premiumCount);
 
-    // TODO (Split Loop, 13.5): this single loop does two unrelated jobs —
-    //      accumulating the subtotal and counting premium items. Split it into
-    //      two loops, then consider Extract Method (13.2) on each one.
-    for (int i = 0; i < itemPrices.length; i++) {
-      subtotal += itemPrices[i];
-      if (itemPrices[i] >= 100.0) {
-        premiumCount++;
-      }
+    double applyDiscount = 200.0;
+    double discountRate = 0.10;
+    double discount = 0.00;
+    if (subtotal > applyDiscount) {
+      discount = subtotal * discountRate;
     }
 
-    // TODO: replace the magic numbers below with named constants.
-    if (subtotal > 200.0) {
-      discount = subtotal * 0.10;
-    }
+    double taxRate = 0.13;
     double taxable = subtotal - discount;
-    double tax = taxable * 0.13;
+    double tax = taxable * taxRate;
     double total = taxable + tax;
 
-    // TODO (Extract Method, 13.2): everything from here down is one job —
-    //      formatting the report. Pull it out into its own well-named method
-    //      (and the per-item line into a second one).
+    return getString(customer, itemNames, itemPrices, premiumCount, subtotal, discount, tax, total);
+  }
+
+  private static String getString(String customer, String[] itemNames, double[] itemPrices, int premiumCount, double subtotal, double discount, double tax, double total) {
     StringBuilder report = new StringBuilder();
     report.append("Order summary for ").append(customer).append("\n");
     report.append("----------------------\n");
     for (int i = 0; i < itemNames.length; i++) {
-      report.append(String.format(Locale.US, "%s: $%.2f\n", itemNames[i], itemPrices[i]));
+      report.append(getFormat(itemNames, itemPrices, i));
     }
     report.append(String.format(Locale.US, "Items: %d\n", itemNames.length));
     report.append(String.format(Locale.US, "Premium items: %d\n", premiumCount));
@@ -96,5 +91,25 @@ public class OrderSummary {
     report.append(String.format(Locale.US, "Tax: $%.2f\n", tax));
     report.append(String.format(Locale.US, "Total: $%.2f", total));
     return report.toString();
+  }
+
+  private static String getFormat(String[] itemNames, double[] itemPrices, int i) {
+    return String.format(Locale.US, "%s: $%.2f\n", itemNames[i], itemPrices[i]);
+  }
+
+  private static double getSubtotal(double[] itemPrices, double subtotal) {
+    for (double itemPrice : itemPrices) {
+        subtotal += itemPrice;
+    }
+    return subtotal;
+  }
+
+  private static int getPremiumCount(double[] itemPrices, int premiumCount) {
+    for (double itemPrice : itemPrices) {
+        if (itemPrice >= 100.0) {
+            premiumCount++;
+        }
+    }
+    return premiumCount;
   }
 }
