@@ -2,7 +2,7 @@ import java.util.Objects;
 
 /**
  * Exercise (Chapter 2: Classes) — overriding {@code toString}, {@code equals},
- * and {@code hashCode}.
+ * and {@code hashCode}. Done.
  *
  * Every class inherits these methods from {@code Object}, but the defaults
  * compare by identity (are these the *same* object?) rather than by value.
