@@ -7,7 +7,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 /**
- * Exercise (Chapter 4: GUIs with Swing) — matching a layout.
+ * Exercise (Chapter 4: GUIs with Swing) — matching a layout. Done.
  *
  * Press ▶ on {@code main} to open the window. Right now every component is
  * crammed into a single row. Rearrange the components in {@link #buildForm()} —
